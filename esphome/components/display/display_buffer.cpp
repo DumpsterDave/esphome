@@ -20,16 +20,6 @@ void DisplayBuffer::init_internal_(uint32_t buffer_length) {
   this->clear();
 }
 
-void DisplayBuffer::init_internal(uint32_t buffer_length) {
-  ExternalRAMAllocator<uint8_t> allocator(ExternalRAMAllocator<uint8_t>::ALLOW_FAILURE);
-  this->buffer_ = allocator.allocate(buffer_length);
-  if (this->buffer_ == nullptr) {
-    ESP_LOGE(TAG, "Could not allocate buffer for display!");
-    return;
-  }
-  this->clear();
-}
-
 int DisplayBuffer::get_width() {
   switch (this->rotation_) {
     case DISPLAY_ROTATION_90_DEGREES:
