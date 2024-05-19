@@ -233,7 +233,7 @@ void WaveshareEPaperBase::start_data_() {
 void WaveshareEPaperBase::end_data_() { this->disable(); }
 void WaveshareEPaperBase::on_safe_shutdown() { this->deep_sleep(); }
 
-void WaveshareEPaper7C::init_internal_(uint32_t buffer_length) {
+void WaveshareEPaper7C::init_internal(uint32_t buffer_length) {
   ExternalRAMAllocator<uint8_t> allocator(ExternalRAMAllocator<uint8_t>::ALLOW_FAILURE);
   uint32_t small_buffer_length = buffer_length / NUM_BUFFERS;
 
