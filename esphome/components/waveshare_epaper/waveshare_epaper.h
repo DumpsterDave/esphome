@@ -103,6 +103,31 @@ class WaveshareEPaper7C : public WaveshareEPaperBase {
   uint8_t *buffers_[NUM_BUFFERS];
 };
 
+class WaveshareEPaper4P01InF : public WaveshareEPaper7C {
+ public:
+  void initialize() override;
+  void display() override;
+  void dump_config() override;
+
+ protected:
+  int get_width_internal() override;
+  int get_height_internal() override;
+  uint32_t idle_timeout_() override;
+  void deep_sleep() override { ; }
+  bool wait_until_idle_();
+  bool deep_sleep_between_updates_{true};
+  void reset_() {
+    if (this->reset_pin_ != nullptr) {
+      this->reset_pin_->digital_write(true);
+      delay(200);
+      this->reset_pin_->digital_write(false);
+      delay(1);
+      this->reset_pin_->digital_write(true);
+      delay(200);
+    }
+  };
+};
+
 enum WaveshareEPaperTypeAModel {
   WAVESHARE_EPAPER_1_54_IN = 0,
   WAVESHARE_EPAPER_1_54_IN_V2,
