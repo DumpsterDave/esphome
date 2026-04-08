@@ -116,16 +116,6 @@ class WaveshareEPaper4P01InF : public WaveshareEPaper7C {
   void deep_sleep() override { ; }
   bool wait_until_idle_();
   bool deep_sleep_between_updates_{true};
-  void reset_() {
-    if (this->reset_pin_ != nullptr) {
-      this->reset_pin_->digital_write(true);
-      delay(200);
-      this->reset_pin_->digital_write(false);
-      delay(1);
-      this->reset_pin_->digital_write(true);
-      delay(200);
-    }
-  };
 };
 
 enum WaveshareEPaperTypeAModel {
