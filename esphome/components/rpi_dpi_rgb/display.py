@@ -1,7 +1,7 @@
 from esphome import pins
 import esphome.codegen as cg
 from esphome.components import display
-from esphome.components.esp32 import const, only_on_variant
+from esphome.components.esp32 import VARIANT_ESP32S3, only_on_variant
 from esphome.components.mipi import (
     CONF_DE_PIN,
     CONF_HSYNC_BACK_PORCH,
@@ -102,7 +102,7 @@ CONFIG_SCHEMA = cv.All(
                         }
                     ),
                 ),
-                cv.Optional(CONF_COLOR_ORDER): cv.one_of(
+                cv.Optional(CONF_COLOR_ORDER, default="BGR"): cv.one_of(
                     *COLOR_ORDERS.keys(), upper=True
                 ),
                 cv.Optional(CONF_INVERT_COLORS, default=False): cv.boolean,
@@ -121,8 +121,7 @@ CONFIG_SCHEMA = cv.All(
             }
         )
     ),
-    only_on_variant(supported=[const.VARIANT_ESP32S3]),
-    cv.only_with_esp_idf,
+    only_on_variant(supported=[VARIANT_ESP32S3]),
 )
 
 

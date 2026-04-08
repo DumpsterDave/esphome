@@ -154,14 +154,15 @@ CONFIG_SCHEMA = cv.All(
         upper=True,
         key=CONF_MODEL,
     ),
-    cv.only_with_esp_idf,
+    _validate,
+    cv.only_on_esp32,
 )
 
 
 async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
     await display.register_display(var, config)
-    await spi.register_spi_device(var, config)
+    await spi.register_spi_device(var, config, write_only=True)
 
     chip = DriverChip.chips[config[CONF_MODEL]]
     if chip.initsequence:
